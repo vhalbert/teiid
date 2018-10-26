@@ -226,6 +226,37 @@ You can use the system property org.teiid.pgVersion to control this further.</p>
 <ul>
 <li/>
 	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-4731'>TEIID-4731</a> - Unable to connect to MongoDB pod from JBoss Data Virtualization (on OpenShift) (changing the default of authentication scheme used for MongoDB to SCRAM_SHA_1 as MongoDB >= 3.0 uses this auth scheme)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5013'>TEIID-5013</a> - Google Spreadsheet Data Sources with custom client_id and client_secret (allowing the client id/secret to be changed)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5179'>TEIID-5179</a> - Upgrade hadoop-core jar (from 0.20.2 to 1.1.2)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5329'>TEIID-5329</a> - Problem with salesforce url (updating salesforce url)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5439'>TEIID-5439</a> - Batch removed during large internal materialization load (ensuring that the original exception is shown, adding a break from unsuccessful undo, TEIID-2465 updating the performance test)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5443'>TEIID-5443</a> - Using RAND() function in a column mask errors on temp table creation (fix for creating an improper view when adding masking)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5444'>TEIID-5444</a> - Upgrade to Olingo-4.5 (Upgrading the OData Olingo library to 4.5.0)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5477'>TEIID-5477</a> - Incorrect results with lead/lag over windows with duplicates (correcting lead/lag over duplicate values)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5485'>TEIID-5485</a> - JOIN of a table and sub-query containing DISTINCT and table function of a procedural call with arguments fails (correcting the wrong output from a nested table join)
+</ul>
+
+<h4 class="western">from 8.12.15.6_4</h4>  
+<ul>
+<li/>
+	<p style="margin-bottom: 0in">
 <a href='https://issues.jboss.org/browse/TEIID-2476'>TEIID-2476</a> - Exclude hidden tables/columns from metadata (filtering metadata based upon data roles,  improving the performance of pg system queries, allowing admin access to see everything, adding a test for properties, expanding the check of key records)
 <li/>
 	<p style="margin-bottom: 0in">
@@ -239,6 +270,13 @@ You can use the system property org.teiid.pgVersion to control this further.</p>
 <li/>
 	<p style="margin-bottom: 0in">
 <a href='https://issues.jboss.org/browse/TEIID-4761'>TEIID-4761</a> - Support lpad/rpad pushdown to sql server (adding lpad/rpad)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5317'>TEIID-5317</a> - Add support for ODBC 3.0 functions (adding odbc date/time functions)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5374'>TEIID-5374</a> - Allow for non-virtual dependent joins to be created over unions (correcting and expanding the logic dealing with dependent joins over
+    unions)
 <li/>
 	<p style="margin-bottom: 0in">
 <a href='https://issues.jboss.org/browse/TEIID-5390'>TEIID-5390</a> - Concurrent repeated add attempts create orphaned blocks (fixing the leak of inode/data blocks)
@@ -257,10 +295,22 @@ You can use the system property org.teiid.pgVersion to control this further.</p>
 <a href='https://issues.jboss.org/browse/TEIID-5424'>TEIID-5424</a> - timestampadd/diff with quarter should not use 91 days (correcting quarter calculations)
 <li/>
 	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5426'>TEIID-5426</a> - For Each processing for instead of triggers should materialize change set before processing (switching to use an intermediate change set table)
+<li/>
+	<p style="margin-bottom: 0in">
 <a href='https://issues.jboss.org/browse/TEIID-5430'>TEIID-5430</a> - Closing Teiid JDBC connection is delayed 5 seconds (making the close wait much smaller)
 <li/>
 	<p style="margin-bottom: 0in">
 <a href='https://issues.jboss.org/browse/TEIID-5434'>TEIID-5434</a> - count(*) returns different nr of rows compared to normal select (correcting the output columns with the distinct operation is moved)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5441'>TEIID-5441</a> - Redshift translator "AS decimal" should have 0 default scale (adding explicit precision/scale to decimal casts)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5446'>TEIID-5446</a> - Retrieving clob values from Exasol prints stacktrace to server log (avoiding getClob for Exasol)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5457'>TEIID-5457</a> - Issues with sybase/ms sql pad pushdown (correcting the lpad/rpad pushdowns)
 </ul>
 
 <h4 class="western">from  8.12.14.6_4</h4>  

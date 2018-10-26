@@ -18,6 +18,11 @@
  */
 package org.teiid.translator.jdbc.exasol;
 
+import static org.teiid.translator.TypeFacility.RUNTIME_NAMES.*;
+
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,14 +31,13 @@ import org.teiid.language.Function;
 import org.teiid.translator.SourceSystemFunctions;
 import org.teiid.translator.Translator;
 import org.teiid.translator.TranslatorException;
+import org.teiid.translator.TypeFacility;
 import org.teiid.translator.TypeFacility.RUNTIME_CODES;
 import org.teiid.translator.jdbc.AliasModifier;
 import org.teiid.translator.jdbc.ConvertModifier;
 import org.teiid.translator.jdbc.FunctionModifier;
 import org.teiid.translator.jdbc.JDBCExecutionFactory;
 import org.teiid.translator.jdbc.oracle.ConcatFunctionModifier;
-
-import static org.teiid.translator.TypeFacility.RUNTIME_NAMES.*;
 
 /**
  * Translator for the EXASOL database.
@@ -200,7 +204,7 @@ public class ExasolExecutionFactory extends JDBCExecutionFactory {
         addPushDownFunction(EXASOL, YEARS_BETWEEN, DOUBLE, DATE, DATE);
         addPushDownFunction(EXASOL, YEARS_BETWEEN, DOUBLE, TIMESTAMP, TIMESTAMP);
 
-        registerFunctionModifier(SourceSystemFunctions.FROM_UNIXTIME, new AliasModifier(FROM_POSIX_TIME));
+        //registerFunctionModifier(SourceSystemFunctions.FROM_UNIXTIME, new AliasModifier(FROM_POSIX_TIME));
         registerFunctionModifier(SourceSystemFunctions.DAYOFMONTH, new AliasModifier(DAY));
         registerFunctionModifier(SourceSystemFunctions.FORMATTIMESTAMP, new AliasModifier(TO_CHAR));
         registerFunctionModifier(SourceSystemFunctions.PARSETIMESTAMP, new AliasModifier(TO_TIMESTAMP));
@@ -290,7 +294,7 @@ public class ExasolExecutionFactory extends JDBCExecutionFactory {
 
         //Date
         supportedFunctions.add(SourceSystemFunctions.CURDATE);
-        supportedFunctions.add(SourceSystemFunctions.FROM_UNIXTIME);
+        //supportedFunctions.add(SourceSystemFunctions.FROM_UNIXTIME);
         supportedFunctions.add(SourceSystemFunctions.MONTH);
         supportedFunctions.add(SourceSystemFunctions.NOW);
         supportedFunctions.add(SourceSystemFunctions.PARSETIMESTAMP);
@@ -301,6 +305,24 @@ public class ExasolExecutionFactory extends JDBCExecutionFactory {
         supportedFunctions.add(SourceSystemFunctions.CONVERT);
 
         return supportedFunctions;
+    }
+    
+    @Override
+    public Object retrieveValue(CallableStatement results, int parameterIndex,
+            Class<?> expectedType) throws SQLException {
+        if (expectedType == TypeFacility.RUNTIME_TYPES.CLOB) {
+            expectedType = TypeFacility.RUNTIME_TYPES.STRING;
+        }
+        return super.retrieveValue(results, parameterIndex, expectedType);
+    }
+    
+    @Override
+    public Object retrieveValue(ResultSet results, int columnIndex,
+            Class<?> expectedType) throws SQLException {
+        if (expectedType == TypeFacility.RUNTIME_TYPES.CLOB) {
+            expectedType = TypeFacility.RUNTIME_TYPES.STRING;
+        }
+        return super.retrieveValue(results, columnIndex, expectedType);
     }
 
     @Override

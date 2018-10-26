@@ -125,6 +125,7 @@ public class QueryRewriter {
 		ALIASED_FUNCTIONS.put("chr", SourceSystemFunctions.CHAR); //$NON-NLS-1$
 		ALIASED_FUNCTIONS.put("substr", SourceSystemFunctions.SUBSTRING); //$NON-NLS-1$
 		ALIASED_FUNCTIONS.put("st_geomfrombinary", SourceSystemFunctions.ST_GEOMFROMWKB); //$NON-NLS-1$
+		ALIASED_FUNCTIONS.put(SQLConstants.Reserved.CURRENT_DATE, SourceSystemFunctions.CURDATE);
 		PARSE_FORMAT_TYPES.addAll(Arrays.asList(DataTypeManager.DefaultDataTypes.TIME,
 				DataTypeManager.DefaultDataTypes.DATE, DataTypeManager.DefaultDataTypes.TIMESTAMP,
 				DataTypeManager.DefaultDataTypes.BIG_DECIMAL, DataTypeManager.DefaultDataTypes.BIG_INTEGER,
@@ -2555,14 +2556,12 @@ public class QueryRewriter {
 				function = result;
 				break;
 			}
-			case 1: {// from_unixtime(a) => timestampadd(SQL_TSI_SECOND, a, new Timestamp(0))
-				Function result = new Function(FunctionLibrary.TIMESTAMPADD, new Expression[] {
-						new Constant(NonReserved.SQL_TSI_SECOND), function.getArg(0), new Constant(new Timestamp(0)) });
-				// resolve the function
-				FunctionDescriptor descriptor = funcLibrary.findFunction(FunctionLibrary.TIMESTAMPADD,
-						new Class[] { DataTypeManager.DefaultDataClasses.STRING,
-								DataTypeManager.DefaultDataClasses.INTEGER,
-								DataTypeManager.DefaultDataClasses.TIMESTAMP });
+			case 1: {//from_unixtime(a) => timestampadd(SQL_TSI_SECOND, a, new Timestamp(0)) 
+				Function result = new Function(FunctionLibrary.TIMESTAMPADD,
+						new Expression[] {new Constant(NonReserved.SQL_TSI_SECOND), function.getArg(0), new Constant(new Timestamp(0)) });
+				//resolve the function
+				FunctionDescriptor descriptor = 
+					funcLibrary.findFunction(FunctionLibrary.TIMESTAMPADD, new Class[] { DataTypeManager.DefaultDataClasses.STRING, DataTypeManager.DefaultDataClasses.INTEGER, DataTypeManager.DefaultDataClasses.TIMESTAMP });
 				result.setFunctionDescriptor(descriptor);
 				result.setType(DataTypeManager.DefaultDataClasses.TIMESTAMP);
 				function = result;
@@ -3278,7 +3277,16 @@ public class QueryRewriter {
 		DeclareStatement ds = new DeclareStatement(rowsUpdated, DataTypeManager.DefaultDataTypes.INTEGER,
 				new Constant(0));
 		parent.addStatement(ds);
-		LoopStatement ls = new LoopStatement(b, query, varGroup.getName());
+		//create an intermediate temp
+		Insert insert = new Insert();
+		insert.setGroup(new GroupSymbol("#changes")); //$NON-NLS-1$
+		insert.setQueryExpression(query);
+		parent.addStatement(new CommandStatement(insert));
+		Query q = new Query();
+		q.setSelect(new Select());
+		q.getSelect().addSymbol(new MultipleElementSymbol());
+		q.setFrom(new From(Arrays.asList(new UnaryFromClause(new GroupSymbol("#changes"))))); //$NON-NLS-1$
+		LoopStatement ls = new LoopStatement(b, q, varGroup.getName());
 		parent.addStatement(ls);
 		AssignmentStatement as = new AssignmentStatement();
 		rowsUpdated.setType(DataTypeManager.DefaultDataClasses.INTEGER);
