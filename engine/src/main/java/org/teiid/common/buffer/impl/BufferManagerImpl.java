@@ -189,6 +189,7 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
 		private long currentSize;
 		private long rowsSampled;
         private boolean removed;
+        private boolean sizeWarning;
 
 		private BatchManagerImpl(Long newID, Class<?>[] types) {
 			this.id = newID;
@@ -290,8 +291,14 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
             }
             currentSize += sizeEstimate;
             if (!remove && currentSize > maxBatchManagerSizeEstimate) {
-                this.remove();
-                throw new TeiidComponentException(QueryPlugin.Event.TEIID31261, QueryPlugin.Util.gs(QueryPlugin.Event.TEIID31261, maxBatchManagerSizeEstimate, id));
+                if (enforceMaxBatchManagerSizeEstimate) {
+                    this.remove();
+                    throw new TeiidComponentException(QueryPlugin.Event.TEIID31261, QueryPlugin.Util.gs(QueryPlugin.Event.TEIID31261, maxBatchManagerSizeEstimate, id));
+                }
+                if (!sizeWarning) {
+                    LogManager.logWarning(LogConstants.CTX_BUFFER_MGR, QueryPlugin.Util.gs(QueryPlugin.Event.TEIID31292, maxBatchManagerSizeEstimate, id));
+                    sizeWarning = true;
+                }
             }
             CommandContext threadLocalContext = CommandContext.getThreadLocalContext();
             if (threadLocalContext != null) {
@@ -356,6 +363,9 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
 			if (LogManager.isMessageToBeRecorded(LogConstants.CTX_BUFFER_MGR, MessageLevel.TRACE)) {
 				LogManager.logTrace(LogConstants.CTX_BUFFER_MGR, id, "getting batch", batch, "total reads", reads, "reference hits", referenceHit.get()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
+            if (removed) {
+                throw new TeiidComponentException("Already removed " + id); //$NON-NLS-1$
+            }
 			CacheEntry ce = fastGet(batch, prefersMemory.get(), retain);
 			if (ce != null) {
 			    if (!retain) {
@@ -379,7 +389,7 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
 				}
 				ce = cache.get(o, batch, this.ref);
 				if (ce == null) {
-					throw new AssertionError("Batch not found in storage " + batch); //$NON-NLS-1$
+					throw new TeiidComponentException("Batch not found in storage " + batch); //$NON-NLS-1$
 				}
 				if (!retain) {
                     updateEstimates(ce.getSizeEstimate(), true);
@@ -516,6 +526,7 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
 
     private long maxFileStoreLength = Long.MAX_VALUE;
     private long maxBatchManagerSizeEstimate = Long.MAX_VALUE;
+    private boolean enforceMaxBatchManagerSizeEstimate = false;
     private long maxSessionBatchManagerSizeEstimate = Long.MAX_VALUE;
 	
 	public BufferManagerImpl() {
@@ -634,7 +645,7 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
 		return types;
 	}
 
-	private BatchManagerImpl createBatchManager(final Long newID, Class<?>[] types) {
+	BatchManagerImpl createBatchManager(final Long newID, Class<?>[] types) {
 		return new BatchManagerImpl(newID, types);
 	}
 
@@ -703,9 +714,13 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
 		if (this.storageManager != null) {
     		long max = this.storageManager.getMaxStorageSpace();
             this.maxFileStoreLength  = (max/maxActivePlans)>>2;
-            this.maxBatchManagerSizeEstimate = (long)(.8*((((long)this.getMaxReserveKB())<<10) + max + cache.getMemoryBufferSpace())/Math.sqrt(maxActivePlans));
+		    //note the increase of the storage / memory buffer values here to normalize to heap estimates 
+		    //batches in serialized form are much more compact
+		    
+            this.maxBatchManagerSizeEstimate = (long)(.8*((((long)this.getMaxReserveKB())<<10) + (max<<3) + (cache.getMemoryBufferSpace()<<3))/Math.sqrt(maxActivePlans));
             if (this.options != null) {
                 this.maxSessionBatchManagerSizeEstimate = this.options.getMaxSessionBufferSizeEstimate();
+                this.enforceMaxBatchManagerSizeEstimate = this.options.isEnforceSingleMaxBufferSizeEstimate();
             }
             this.maxBatchManagerSizeEstimate = Math.min(maxBatchManagerSizeEstimate, maxSessionBatchManagerSizeEstimate);
 		}
@@ -988,6 +1003,10 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
 				if (evicted) {
 					synchronized (ce) {
 						if (memoryEntries.remove(ce.getId()) != null) {
+						    Serializer<?> s = ce.getSerializer();
+						    if (LogManager.isMessageToBeRecorded(LogConstants.CTX_BUFFER_MGR, MessageLevel.TRACE)) {
+				                LogManager.logTrace(LogConstants.CTX_BUFFER_MGR, "Removing batch from heap cache", s!=null?s.getId():null, ce.getId()); //$NON-NLS-1$
+				            }
 							freed += ce.getSizeEstimate();
 							long result = activeBatchBytes.addAndGet(-ce.getSizeEstimate());
                             assert result >= 0 || !LrfuEvictionQueue.isSuspectSize(activeBatchBytes);
@@ -1116,12 +1135,15 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
 	}
 
 	private void remove(CacheEntry ce, boolean inMemory) {
-		if (inMemory) {
+	    Serializer<?> s = ce.getSerializer();
+        if (inMemory) {
+            if (LogManager.isMessageToBeRecorded(LogConstants.CTX_BUFFER_MGR, MessageLevel.TRACE)) {
+                LogManager.logTrace(LogConstants.CTX_BUFFER_MGR, "Removing batch from heap cache", s!=null?s.getId():null, ce.getId()); //$NON-NLS-1$
+            }
 		    long result = activeBatchBytes.addAndGet(-ce.getSizeEstimate());
             assert result >= 0 || !LrfuEvictionQueue.isSuspectSize(activeBatchBytes);
 		}
 		assert !LrfuEvictionQueue.isSuspectSize(activeBatchBytes);
-		Serializer<?> s = ce.getSerializer();
 		if (s != null) {
 			removeFromCache(s.getId(), ce.getId());
 		}
@@ -1416,6 +1438,11 @@ public class BufferManagerImpl implements BufferManager, ReplicatedObject<String
 	public void setMaxBatchManagerSizeEstimate(
             long maxBatchManagerSizeEstimate) {
         this.maxBatchManagerSizeEstimate = maxBatchManagerSizeEstimate;
+    }
+	
+	public void setEnforceMaxBatchManagerSizeEstimate(
+            boolean enforceMaxBatchManagerSizeEstimate) {
+        this.enforceMaxBatchManagerSizeEstimate = enforceMaxBatchManagerSizeEstimate;
     }
 
 }

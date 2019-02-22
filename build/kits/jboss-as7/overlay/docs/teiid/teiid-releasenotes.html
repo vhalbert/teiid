@@ -226,6 +226,61 @@ You can use the system property org.teiid.pgVersion to control this further.</p>
 <ul>
 <li/>
 	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-4418'>TEIID-4418</a> - Pushdown of a correlated with clause contains wrong correlated reference (fixing pushdown correlation handling)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5356'>TEIID-5356</a> - Infer field metadata from the source columns (logic to infer metadata, rather than use defaults for views)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5357'>TEIID-5357</a> - creating a ddl table with two unique columns fails (correcting the auto-naming)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5359'>TEIID-5359</a> - Resultset metadata defaults to case insensitive (changing the default case sensitive to true)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5361'>TEIID-5361</a> - Column metadata with set queries only reflects projected branch (Column metadata with set queries only reflects projected branch)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5369'>TEIID-5369</a> - enableDependentJoins for Redshift translator (removing the on commit clause from redshift)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5410'>TEIID-5410</a> - Incorrect result from timestampadd with 1 billion or more fractional seconds (correcting timestampadd behavior)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5461'>TEIID-5461</a> - adding parsing/pushdown support for the window frame clause, adding a validation of RANGE and int bounds
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5525'>TEIID-5525</a> - add a flag to revert to the prior behavior (TEIID-4557) (adding a flag to optionally enforce the single buffer max, increasing the default estimate of max size, adding details about the system property to the message)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5516'>TEIID-5516</a> - Exclude hidden schemas in metadata (restricting schemas from being seen as well)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5564'>TEIID-5564</a> - Batch removed during large temp table load (removing all potential unchecked exceptions from batch access)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5474'>TEIID-5474</a> - NPE on Complex Query with Procedure Call in SELECT (backport of the changes along with the first commit of TEIID-4449)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5532'>TEIID-5532</a> - Common table projection minimization does not account for usage in a subquery nested in an aggregate or in some view scenarios (fix for inappropriate projection minimizationi, when cte is nested in a view, narrowing narrowing the commands used to determine usage correcting the marking of columns as accessible to be localized)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5541'>TEIID-5541</a> - Incorrect parsing of xml with XmlTable (disabling projection when root() is used, correcting the no projection, but a streaming path case)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5550'>TEIID-5550</a> - DISTINCT pushed down incorrectly in some cases (fix for inappropriate dup node removal over join)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5559'>TEIID-5559</a> - odata4 NPE when accessing VDB including FK relationship across models (allowing fks to cross schemas)
+<li/>
+	<p style="margin-bottom: 0in">
+<a href='https://issues.jboss.org/browse/TEIID-5587'>TEIID-5587</a> - Oracle 11 drivers don't accept NVARCHAR type (refining to allow latin 1 supplement as ascii)
+</ul>
+
+<h4 class="western">from 8.12.16.6_4</h4>  
+<ul>
+<li/>
+	<p style="margin-bottom: 0in">
 <a href='https://issues.jboss.org/browse/TEIID-4731'>TEIID-4731</a> - Unable to connect to MongoDB pod from JBoss Data Virtualization (on OpenShift) (changing the default of authentication scheme used for MongoDB to SCRAM_SHA_1 as MongoDB >= 3.0 uses this auth scheme)
 <li/>
 	<p style="margin-bottom: 0in">

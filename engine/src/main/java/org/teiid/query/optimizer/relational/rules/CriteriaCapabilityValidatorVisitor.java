@@ -37,7 +37,6 @@ import org.teiid.query.QueryPlugin;
 import org.teiid.query.analysis.AnalysisRecord;
 import org.teiid.query.metadata.QueryMetadataInterface;
 import org.teiid.query.metadata.SupportConstants;
-import org.teiid.query.metadata.TempMetadataAdapter;
 import org.teiid.query.optimizer.capabilities.CapabilitiesFinder;
 import org.teiid.query.optimizer.capabilities.SourceCapabilities;
 import org.teiid.query.optimizer.capabilities.SourceCapabilities.Capability;
@@ -234,6 +233,12 @@ public class CriteriaCapabilityValidatorVisitor extends LanguageVisitor {
     			&& windowFunction.getFunction().isDistinct()) {
     		markInvalid(windowFunction, "Window function distinct aggregate not supported by source"); //$NON-NLS-1$
             return;
+    	}
+    	if (windowFunction.getWindowSpecification().getWindowFrame() != null) {
+    	    if (!this.caps.supportsCapability(Capability.WINDOW_FUNCTION_FRAME_CLAUSE)) {
+    	        markInvalid(windowFunction, "Window function frame clause not supported by source"); //$NON-NLS-1$
+    	        return;
+    	    }
     	}
     	/* Some sources do not like this case. While we don't allow it to be entered directly,
     	 * it can occur when raising a null node.
@@ -631,7 +636,7 @@ public class CriteriaCapabilityValidatorVisitor extends LanguageVisitor {
                 Collection<GroupSymbol> groups = GroupCollectorVisitor.getGroupsIgnoreInlineViews(obj.getCommand(), true);
                 boolean allTemp = true;
                 for (GroupSymbol gs : groups) {
-                    if (!gs.isTempTable() || TempMetadataAdapter.getActualMetadataId(gs.getMetadataID()) != gs.getMetadataID()) {
+                    if (!gs.isPushedCommonTable()) {
                         allTemp = false;
                         break;
                     }
