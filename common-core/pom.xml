@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>teiid-parent</artifactId>
 		<groupId>org.teiid</groupId>
-        <version>13.0.2.fuse-760004</version>
+        <version>13.0.2.fuse-760004-redhat-00002</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>teiid-common-core</artifactId>
@@ -36,9 +36,9 @@
 						<phase>process-resources</phase>
 						<configuration>
 							<tasks>
-								<tstamp />
+								<tstamp></tstamp>
 								<replace dir="${project.build.outputDirectory}" token="@build-date@" value="${DSTAMP}">
-									<include name="**/*.properties" />
+									<include name="**/*.properties"></include>
 								</replace>
 							</tasks>
 						</configuration>

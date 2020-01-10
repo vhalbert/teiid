@@ -4,13 +4,13 @@
   <parent>
       <groupId>org.teiid</groupId>
       <artifactId>connectors</artifactId>
-      <version>13.0.2.fuse-760004</version>
+      <version>13.0.2.fuse-760004-redhat-00002</version>
   </parent>
   <groupId>org.teiid.connectors</groupId>
   <artifactId>openapi</artifactId>
   <packaging>pom</packaging>
   <name>OpenAPI Extensions</name>
-  <description />
+  <description></description>
   
   <modules>
     <module>translator-openapi</module>

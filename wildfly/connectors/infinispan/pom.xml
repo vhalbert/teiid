@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.teiid.wildfly</groupId>
         <artifactId>connectors</artifactId>
-        <version>13.0.2.fuse-760004</version>
+        <version>13.0.2.fuse-760004-redhat-00002</version>
     </parent>
     <groupId>org.teiid.wildfly.connectors</groupId>
     <artifactId>infinispan</artifactId>
@@ -17,7 +17,7 @@
 			<dependency>
 	            <groupId>org.teiid.connectors</groupId>
 	            <artifactId>infinispan</artifactId>
-	            <version>${project.version}</version>
+	            <version>13.0.2.fuse-760004-redhat-00002</version>
 	            <type>pom</type>
 	            <scope>import</scope>
             </dependency>
@@ -25,12 +25,12 @@
 			<dependency>
 				<groupId>org.teiid.wildfly.connectors</groupId>
 				<artifactId>connector-infinispan-hotrod</artifactId>
-				<version>${project.version}</version>
+				<version>13.0.2.fuse-760004-redhat-00002</version>
 			</dependency>
 			<dependency>
 				<groupId>org.teiid.wildfly.connectors</groupId>
 				<artifactId>connector-infinispan-hotrod</artifactId>
-				<version>${project.version}</version>
+				<version>13.0.2.fuse-760004-redhat-00002</version>
 				<type>test-jar</type>
 			</dependency>
             <dependency>

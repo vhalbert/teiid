@@ -4,7 +4,7 @@
 	<parent>		
 	<groupId>org.teiid.connectors</groupId>
 	<artifactId>amazon</artifactId>
-        <version>13.0.2.fuse-760004</version>
+        <version>13.0.2.fuse-760004-redhat-00002</version>
 	</parent>
 	<artifactId>translator-simpledb</artifactId>
 	<name>Amazon SimpleDB Translator</name>
