@@ -3,11 +3,6 @@
   xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
 http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <servers>
-    <server>
-      <id>oss.sonatype.org</id>
-      <username>${env.SONATYPE_USERNAME}</username>
-      <password>${env.SONATYPE_PASSWORD}</password>
-    </server> 
   </servers>
 
   <profiles>
@@ -83,25 +78,6 @@ http://maven.apache.org/xsd/settings-1.0.0.xsd">
         </repository>
       </repositories> 
     </profile>    
-    <profile>
-      <id>apache-snapshot-repository</id>
-      <repositories>
-        <repository>
-          <id>apache-snapshot-repository-group</id>
-          <name>Apache Snapshot Maven Repository Group</name>
-          <url>https://repository.apache.org/content/groups/snapshots/</url>
-          <layout>default</layout>
-          <releases>
-            <enabled>false</enabled>
-            <updatePolicy>never</updatePolicy>
-          </releases>
-          <snapshots>
-            <enabled>true</enabled>
-            <updatePolicy>never</updatePolicy>
-          </snapshots>
-        </repository>
-      </repositories> 
-    </profile>
     <!-- 
     <profile>
       <id>jboss-techpreview</id>
@@ -121,6 +97,7 @@ http://maven.apache.org/xsd/settings-1.0.0.xsd">
         </repository>
       </repositories>
     </profile>
+        -->
     <profile>
       <id>jboss-earlyaccess</id>
       <repositories>
@@ -139,7 +116,7 @@ http://maven.apache.org/xsd/settings-1.0.0.xsd">
         </repository>
       </repositories>
     </profile>       
-    -->                
+                
     <profile>
       <id>thirdparty-uploads</id>
       <repositories>
@@ -158,18 +135,112 @@ http://maven.apache.org/xsd/settings-1.0.0.xsd">
         </repository>
       </repositories>
     </profile>
-                        
+    <profile>
+      <id>indy-untested</id>
+      <repositories>
+        <repository>
+          <id>indy-untested</id>
+          <name>indy-untested</name>
+          <url>http://indy.psi.redhat.com/browse/maven/group/builds-untested/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>   
+    <profile>
+      <id>indy-redhat</id>
+      <repositories>
+        <repository>
+          <id>indy-redhat</id>
+          <name>indy-redhat</name>
+          <url>http://indy.psi.redhat.com/api/content/maven/group/redhat-builds/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>  
+    <profile>
+      <id>indy-shared</id>
+      <repositories>
+        <repository>
+          <id>indy-shared</id>
+          <name>indy-shared</name>
+          <url>http://indy.psi.redhat.com/api/content/maven/group/builds-untested+shared-imports/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+    <profile>
+      <id>indy-shared-public</id>
+      <repositories>
+        <repository>
+          <id>indy-shared-public</id>
+          <name>indy-shared-public</name>
+          <url>http://indy.psi.redhat.com/api/content/maven/group/builds-untested+shared-imports+public/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+    <profile>
+      <id>indy-static</id>
+      <repositories>
+        <repository>
+          <id>indy-static</id>
+          <name>indy-static</name>
+          <url>http://indy.psi.redhat.com/api/content/maven/group/static/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>      
   </profiles>
   
 
   <activeProfiles>
+    <activeProfile>indy-static</activeProfile>      
+    <activeProfile>indy-untested</activeProfile>
+    <activeProfile>indy-redhat</activeProfile>
+    <activeProfile>indy-shared</activeProfile>
+    <activeProfile>indy-shared-public</activeProfile>
     <activeProfile>jboss-public-repository</activeProfile>
-    <activeProfile>apache-snapshot-repository</activeProfile>
     <activeProfile>jboss-developer-repository</activeProfile>
     <activeProfile>thirdparty-uploads</activeProfile>
+    <activeProfile>jboss-earlyaccess</activeProfile>    
     <!-- 
     <activeProfile>jboss-techpreview</activeProfile>
-    <activeProfile>jboss-earlyaccess</activeProfile>    
+    
      -->
   </activeProfiles>
 
