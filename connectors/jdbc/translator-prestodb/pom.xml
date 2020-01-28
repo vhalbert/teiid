@@ -3,7 +3,7 @@
     <parent>
         <artifactId>jdbc</artifactId>
         <groupId>org.teiid.connectors</groupId>
-        <version>13.0.2.fuse-760009</version>
+        <version>13.0.2.fuse-760009-redhat-00001</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>translator-prestodb</artifactId>

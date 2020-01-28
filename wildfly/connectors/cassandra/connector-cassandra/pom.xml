@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.teiid.wildfly.connectors</groupId>
         <artifactId>cassandra</artifactId>
-        <version>13.0.2.fuse-760009</version>
+        <version>13.0.2.fuse-760009-redhat-00001</version>
     </parent>
     <artifactId>connector-cassandra</artifactId>
     <name>Cassandra Resource Adapter</name>

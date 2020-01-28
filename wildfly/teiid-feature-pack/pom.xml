@@ -3,13 +3,13 @@
   <parent>
     <artifactId>wildfly-parent</artifactId>
     <groupId>org.teiid.wildfly</groupId>
-    <version>13.0.2.fuse-760009</version>
+    <version>13.0.2.fuse-760009-redhat-00001</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>teiid-feature-pack</artifactId>
   <packaging>pom</packaging>
   <name>Feature packs related Teiid core modules</name>
-  <description />
+  <description></description>
   
   <modules>
     <module>client-feature-pack</module>
