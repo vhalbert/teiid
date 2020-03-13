@@ -3,7 +3,7 @@
   <parent>
     <artifactId>teiid-parent</artifactId>
     <groupId>org.teiid</groupId>
-    <version>13.0.2</version>
+    <version>13.0.2.fuse-760019</version>
   </parent>
   <licenses>
         <license>
