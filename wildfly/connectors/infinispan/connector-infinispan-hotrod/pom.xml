@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.teiid.wildfly.connectors</groupId>
 		<artifactId>infinispan</artifactId>
-		<version>13.0.2.fuse-760019</version>
+		<version>13.0.2.fuse-760019-redhat-00001</version>
 	</parent>
 	<artifactId>connector-infinispan-hotrod</artifactId>
 	<name>Infinispan Hotrod Protocol Based Resource Adapter</name>
@@ -100,4 +100,3 @@
 	</dependencies>
 
 </project>
- 

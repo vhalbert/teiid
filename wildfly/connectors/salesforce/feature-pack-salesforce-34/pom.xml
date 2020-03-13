@@ -1,10 +1,10 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
         <groupId>org.teiid.wildfly.connectors</groupId>
 		<artifactId>salesforce</artifactId>
-		<version>13.0.2.fuse-760019</version>
+		<version>13.0.2.fuse-760019-redhat-00001</version>
 	</parent>
 	<artifactId>feature-pack-salesforce-34</artifactId>
 	<name>Teiid Salesforce 34 Feature Pack</name>
@@ -25,13 +25,13 @@
 		<dependency>
 			<groupId>org.teiid.wildfly</groupId>
 			<artifactId>teiid-client-feature-pack</artifactId>
-			<version>${project.version}</version>
+			<version>13.0.2.fuse-760019-redhat-00001</version>
 			<type>zip</type>
 		</dependency>
         <dependency>
             <groupId>org.teiid.wildfly.connectors</groupId>
             <artifactId>feature-pack-ws</artifactId>
-            <version>${project.version}</version>
+            <version>13.0.2.fuse-760019-redhat-00001</version>
             <type>zip</type>
         </dependency>		
 		<dependency>
@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>org.teiid.wildfly.connectors</groupId>
 			<artifactId>connector-salesforce-34</artifactId>
-			<version>${project.version}</version>
+			<version>13.0.2.fuse-760019-redhat-00001</version>
 		</dependency>
 	</dependencies>
 

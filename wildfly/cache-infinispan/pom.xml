@@ -3,7 +3,7 @@
 	<parent>
 	    <artifactId>wildfly-parent</artifactId>
 	    <groupId>org.teiid.wildfly</groupId>
-	    <version>13.0.2.fuse-760019</version>
+	    <version>13.0.2.fuse-760019-redhat-00001</version>
 	</parent>
 	<licenses>
         <license>
