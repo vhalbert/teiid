@@ -4,14 +4,14 @@
 	<parent>
 		<groupId>org.teiid</groupId>
 		<artifactId>connectors</artifactId>
-		<version>13.1.1.fuse-jdk11-800011</version>
+		<version>13.1.1.fuse-jdk11-800011-redhat-00002</version>
 	</parent>
 
 	<groupId>org.teiid.connectors</groupId>
 	<artifactId>webservice</artifactId>
 	<packaging>pom</packaging>
 	<name>Webservice Extensions</name>
-	<description />
+	<description></description>
 
 	<modules>
 		<module>translator-ws</module>

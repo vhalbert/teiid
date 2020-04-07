@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>org.teiid.wildfly</groupId>
 		<artifactId>connectors</artifactId>
-		<version>13.1.1.fuse-jdk11-800011</version>
+		<version>13.1.1.fuse-jdk11-800011-redhat-00002</version>
 	</parent>
     <groupId>org.teiid.wildfly.connectors</groupId>
 	<artifactId>accumulo</artifactId>
 	<packaging>pom</packaging>
 	<name>Accumulo Extensions</name>
-	<description />
+	<description></description>
 
 	<modules>
 		<module>connector-accumulo</module>
