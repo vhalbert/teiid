@@ -1,10 +1,10 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 	<parent>
         <groupId>org.teiid.wildfly.connectors</groupId>
 		<artifactId>google</artifactId>
-		<version>14.0.1.fuse-jdk11-100011</version>
+		<version>14.0.1.fuse-jdk11-100011-redhat-00001</version>
 	</parent>
     <artifactId>feature-pack-google</artifactId>
     <name>Google Feature Pack</name>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.teiid.wildfly</groupId>
             <artifactId>teiid-client-feature-pack</artifactId>
-            <version>${project.version}</version>
+            <version>14.0.1.fuse-jdk11-100011-redhat-00001</version>
             <type>zip</type>
             <exclusions>
                 <exclusion>
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>org.teiid.wildfly.connectors</groupId>
             <artifactId>connector-google</artifactId>
-            <version>${project.version}</version>
+            <version>14.0.1.fuse-jdk11-100011-redhat-00001</version>
         </dependency>
     </dependencies>
 

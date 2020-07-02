@@ -4,13 +4,13 @@
    <parent>
       <groupId>org.teiid.wildfly</groupId>
       <artifactId>connectors</artifactId>
-      <version>14.0.1.fuse-jdk11-100011</version>
+      <version>14.0.1.fuse-jdk11-100011-redhat-00001</version>
   </parent>
   <groupId>org.teiid.wildfly.connectors</groupId>
   <artifactId>jdbc</artifactId>
   <packaging>pom</packaging>
   <name>JDBC Extensions</name>
-  <description />
+  <description></description>
   
   <modules>
     <module>feature-pack-jdbc</module>

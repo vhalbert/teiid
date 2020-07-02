@@ -4,14 +4,14 @@
 	<parent>
 		<groupId>org.teiid</groupId>
 		<artifactId>connectors</artifactId>
-		<version>14.0.1.fuse-jdk11-100011</version>
+		<version>14.0.1.fuse-jdk11-100011-redhat-00001</version>
 	</parent>
 
 	<groupId>org.teiid.connectors</groupId>
 	<artifactId>salesforce</artifactId>
 	<packaging>pom</packaging>
 	<name>Salesforce Extensions</name>
-	<description />
+	<description></description>
 
 	<modules>
 		<module>translator-salesforce</module>
